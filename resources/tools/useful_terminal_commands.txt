@@ -1,0 +1,5 @@
+export LD_LIBRARY_PATH=/home/pandora/anaconda3/envs/rlgpu/lib:$LD_LIBRARY_PATH
+
+cd /repos/RL/IsaacGym_Preview_4_Package/isaacgym/python/examples
+
+cd /repos/RL/legged_gym/legged_gym/scripts
