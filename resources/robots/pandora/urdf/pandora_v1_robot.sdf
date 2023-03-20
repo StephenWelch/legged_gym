@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sdf version="1.5">
+    <model name="pandora_v1">
+        <joint name="ll1_hip_yaw" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-0.6</lower>
+                    <upper>0.6</upper>
+                    <velocity>12</velocity>
+                </limit>
+                <xyz>0 0 1</xyz>
+            </axis>
+            <child>l_hipgimbal</child>
+            <parent>pelvis</parent>
+        </joint>
+        <joint name="ll2_hip_rol" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-0.6</lower>
+                    <upper>0.6</upper>
+                    <velocity>10</velocity>
+                </limit>
+                <xyz>1 0 0</xyz>
+            </axis>
+            <child>l_glute</child>
+            <parent>l_hipgimbal</parent>
+        </joint>
+        <joint name="ll3_hip_pit" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-1</lower>
+                    <upper>1.2</upper>
+                    <velocity>12</velocity>
+                </limit>
+                <xyz>0 -1 0</xyz>
+            </axis>
+            <child>l_thigh</child>
+            <parent>l_glute</parent>
+        </joint>
+        <joint name="ll4_kne_pit" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-2</lower>
+                    <upper>0</upper>
+                    <velocity>12</velocity>
+                </limit>
+                <xyz>0 -1 0</xyz>
+            </axis>
+            <child>l_shin</child>
+            <parent>l_thigh</parent>
+        </joint>
+        <joint name="ll5_ank_pit" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-0.6</lower>
+                    <upper>0.9</upper>
+                    <velocity>12</velocity>
+                </limit>
+                <xyz>0 -1 0</xyz>
+            </axis>
+            <child>l_ankle</child>
+            <parent>l_shin</parent>
+        </joint>
+        <joint name="ll6_ank_rol" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-0.6</lower>
+                    <upper>0.6</upper>
+                    <velocity>12</velocity>
+                </limit>
+                <xyz>1 0 0</xyz>
+            </axis>
+            <child>l_foot</child>
+            <parent>l_ankle</parent>
+        </joint>
+        <joint name="rl1_hip_yaw" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-0.6</lower>
+                    <upper>0.6</upper>
+                    <velocity>12</velocity>
+                </limit>
+                <xyz>0 0 -1</xyz>
+            </axis>
+            <child>r_hipgimbal</child>
+            <parent>pelvis</parent>
+        </joint>
+        <joint name="rl2_hip_rol" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-0.6</lower>
+                    <upper>0.6</upper>
+                    <velocity>10</velocity>
+                </limit>
+                <xyz>-1 0 0</xyz>
+            </axis>
+            <child>r_glute</child>
+            <parent>r_hipgimbal</parent>
+        </joint>
+        <joint name="rl3_hip_pit" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-1</lower>
+                    <upper>1.2</upper>
+                    <velocity>12</velocity>
+                </limit>
+                <xyz>0 -1 0</xyz>
+            </axis>
+            <child>r_thigh</child>
+            <parent>r_glute</parent>
+        </joint>
+        <joint name="rl4_kne_pit" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-2</lower>
+                    <upper>0</upper>
+                    <velocity>12</velocity>
+                </limit>
+                <xyz>0 -1 0</xyz>
+            </axis>
+            <child>r_shin</child>
+            <parent>r_thigh</parent>
+        </joint>
+        <joint name="rl5_ank_pit" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-0.6</lower>
+                    <upper>0.9</upper>
+                    <velocity>12</velocity>
+                </limit>
+                <xyz>0 -1 0</xyz>
+            </axis>
+            <child>r_ankle</child>
+            <parent>r_shin</parent>
+        </joint>
+        <joint name="rl6_ank_rol" type="revolute">
+            <axis>
+                <dynamics>
+                    <damping>0.1</damping>
+                    <friction>0</friction>
+                </dynamics>
+                <limit>
+                    <effort>100</effort>
+                    <lower>-0.6</lower>
+                    <upper>0.6</upper>
+                    <velocity>12</velocity>
+                </limit>
+                <xyz>-1 0 0</xyz>
+            </axis>
+            <child>r_foot</child>
+            <parent>r_ankle</parent>
+        </joint>
+        <link name="pelvis">
+            <inertial>
+                <inertia>
+                    <ixx>0.061198</ixx>
+                    <ixy>2.599e-05</ixy>
+                    <ixz>-0.0014946</ixz>
+                    <iyy>0.038686</iyy>
+                    <iyz>-1.731e-05</iyz>
+                    <izz>0.051938</izz>
+                </inertia>
+                <mass>4.59</mass>
+                <pose>-0.0042 -0.0001 -0.123 0 0 0</pose>
+            </inertial>
+            <pose>0 0 0 0 0 0</pose>
+            <sensor name="imu_sensor_at_pelvis_frame" type="imu">
+                <imu>
+                    <noise>
+                        <accel>
+                            <bias_mean>0.1</bias_mean>
+                            <bias_stddev>0.001</bias_stddev>
+                            <mean>0</mean>
+                            <stddev>0.017</stddev>
+                        </accel>
+                        <rate>
+                            <bias_mean>7.5e-06</bias_mean>
+                            <bias_stddev>8e-07</bias_stddev>
+                            <mean>0</mean>
+                            <stddev>0.0002</stddev>
+                        </rate>
+                        <type>gaussian</type>
+                    </noise>
+                </imu>
+                <pose>0 0 0 0 0 0</pose>
+                <update_rate>1000</update_rate>
+            </sensor>
+            <visual name="pelvis_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Hip_Assembly.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.2317 0 0 1.5708</pose>
+            </visual>
+            <visual name="pelvis_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="l_hipgimbal">
+            <inertial>
+                <inertia>
+                    <ixx>1.839e-05</ixx>
+                    <ixy>0</ixy>
+                    <ixz>-5e-08</ixz>
+                    <iyy>2.863e-05</iyy>
+                    <iyz>0</iyz>
+                    <izz>1.205e-05</izz>
+                </inertia>
+                <mass>0.06</mass>
+                <pose>0 0 0.0111 0 0 0</pose>
+            </inertial>
+            <pose>0 0.122 -0.277 0 0 0</pose>
+            <visual name="l_hipgimbal_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Cross_Gimble.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0.008 -0.006 1.5708 0 0</pose>
+            </visual>
+            <visual name="l_hipgimbal_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="l_glute">
+            <inertial>
+                <inertia>
+                    <ixx>0.00081566</ixx>
+                    <ixy>-6.957e-05</ixy>
+                    <ixz>-4.413e-05</ixz>
+                    <iyy>0.00075703</iyy>
+                    <iyz>2.643e-05</iyz>
+                    <izz>0.00042333</izz>
+                </inertia>
+                <mass>0.32</mass>
+                <pose>0.0199 0.0044 0.0001 0 0 0</pose>
+            </inertial>
+            <pose>0 0.122 -0.277 0 1.5708 0</pose>
+            <visual name="l_glute_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Thigh_Top_Left_Ass.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>-0.0435 -0.12 -0.003 -1.5708 0 1.5708</pose>
+            </visual>
+            <visual name="l_glute_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="l_thigh">
+            <inertial>
+                <inertia>
+                    <ixx>0.048925</ixx>
+                    <ixy>-0.0064901</ixy>
+                    <ixz>0.00048725</ixz>
+                    <iyy>0.016526</iyy>
+                    <iyz>0.00025689</iyz>
+                    <izz>0.056003</izz>
+                </inertia>
+                <mass>3.38</mass>
+                <pose>0.0175 -0.2229 0.0033 0 0 0</pose>
+            </inertial>
+            <pose>0 0.122 -0.331 1.5708 0 0</pose>
+            <visual name="l_thigh_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Thigh_Left_Assembly.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0.1 0.12 0 1.5708 1.5708</pose>
+            </visual>
+            <visual name="l_thigh_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="l_shin">
+            <inertial>
+                <inertia>
+                    <ixx>0.038212</ixx>
+                    <ixy>0.0030238</ixy>
+                    <ixz>3.901e-05</ixz>
+                    <iyy>0.010896</iyy>
+                    <iyz>-7.491e-05</iyz>
+                    <izz>0.036914</izz>
+                </inertia>
+                <mass>3.19</mass>
+                <pose>0.0173 -0.2062 0.0002 0 0 0</pose>
+            </inertial>
+            <pose>0 0.122 -0.779 1.5708 0 0</pose>
+            <visual name="l_shin_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Left_Shin_Assembly.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>-0.00099692 7.8459e-05 0.025 -1.5708 0 -0.07854</pose>
+            </visual>
+            <visual name="l_shin_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="l_ankle">
+            <inertial>
+                <inertia>
+                    <ixx>4.121e-05</ixx>
+                    <ixy>0</ixy>
+                    <ixz>1e-08</ixz>
+                    <iyy>0.00010976</iyy>
+                    <iyz>0</iyz>
+                    <izz>7.658e-05</izz>
+                </inertia>
+                <mass>0.12</mass>
+                <pose>-0.0013 0 0 0 0 0</pose>
+            </inertial>
+            <pose>0 0.122 -1.213 1.5708 0 0</pose>
+            <visual name="l_ankle_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Legs_Ankle_CrossGimbal2.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0.006 0 1.5708 0 0</pose>
+            </visual>
+            <visual name="l_ankle_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="l_foot">
+            <inertial>
+                <inertia>
+                    <ixx>0.0068877</ixx>
+                    <ixy>1.7e-07</ixy>
+                    <ixz>0.0010049</ixz>
+                    <iyy>0.0058063</iyy>
+                    <iyz>5.8e-07</iyz>
+                    <izz>0.0027324</izz>
+                </inertia>
+                <mass>1.44</mass>
+                <pose>0.0511 0 -0.0083 0 0 0</pose>
+            </inertial>
+            <pose>0 0.122 -1.213 0 1.5708 0</pose>
+            <visual name="l_foot_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Left_Foot_Assembly.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>-0.98 -0.12 -0.006 -1.5708 0 1.5708</pose>
+            </visual>
+            <visual name="l_foot_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="r_hipgimbal">
+            <inertial>
+                <inertia>
+                    <ixx>1.839e-05</ixx>
+                    <ixy>0</ixy>
+                    <ixz>5e-08</ixz>
+                    <iyy>2.863e-05</iyy>
+                    <iyz>0</iyz>
+                    <izz>1.205e-05</izz>
+                </inertia>
+                <mass>0.06</mass>
+                <pose>0.0001 0 -0.0111 0 0 0</pose>
+            </inertial>
+            <pose>0 -0.122 -0.277 3.1416 0 0</pose>
+            <visual name="r_hipgimbal_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Cross_Gimble.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 -0.008 0.006 -1.5708 0 0</pose>
+            </visual>
+            <visual name="r_hipgimbal_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="r_glute">
+            <inertial>
+                <inertia>
+                    <ixx>0.00085106</ixx>
+                    <ixy>-7.318e-05</ixy>
+                    <ixz>4.777e-05</ixz>
+                    <iyy>0.00078245</iyy>
+                    <iyz>-3.014e-05</iyz>
+                    <izz>0.00045967</izz>
+                </inertia>
+                <mass>0.34</mass>
+                <pose>0.0209 0.0038 0.0002 0 0 0</pose>
+            </inertial>
+            <pose>0 -0.122 -0.277 0 1.5708 3.1416</pose>
+            <visual name="r_glute_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Thigh_Right_Top_Bracket.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>-0.044 -0.12 -0.002 1.5708 0 -1.5708</pose>
+            </visual>
+            <visual name="r_glute_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="r_thigh">
+            <inertial>
+                <inertia>
+                    <ixx>0.048512</ixx>
+                    <ixy>-0.0063862</ixy>
+                    <ixz>-0.00046729</ixz>
+                    <iyy>0.016362</iyy>
+                    <iyz>-0.00030021</iyz>
+                    <izz>0.0556</izz>
+                </inertia>
+                <mass>3.35</mass>
+                <pose>0.0174 -0.223 -0.0032 0 0 0</pose>
+            </inertial>
+            <pose>0 -0.122 -0.331 1.5708 0 0</pose>
+            <visual name="r_thigh_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Thigh_Right_Assembly.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0.1 -0.12 0 1.5708 1.5708</pose>
+            </visual>
+            <visual name="r_thigh_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="r_shin">
+            <inertial>
+                <inertia>
+                    <ixx>0.038172</ixx>
+                    <ixy>0.0030357</ixy>
+                    <ixz>-5.826e-05</ixz>
+                    <iyy>0.010886</iyy>
+                    <iyz>0.00013376</iyz>
+                    <izz>0.036883</izz>
+                </inertia>
+                <mass>3.19</mass>
+                <pose>0.0173 -0.2061 -0.0004 0 0 0</pose>
+            </inertial>
+            <pose>0 -0.122 -0.779 1.5708 0 0</pose>
+            <visual name="r_shin_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Right_Shin_Assembly.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>-0.00099692 7.8459e-05 0.025 -1.5708 0 -0.07854</pose>
+            </visual>
+            <visual name="r_shin_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="r_ankle">
+            <inertial>
+                <inertia>
+                    <ixx>4.121e-05</ixx>
+                    <ixy>0</ixy>
+                    <ixz>-1e-08</ixz>
+                    <iyy>0.00010976</iyy>
+                    <iyz>0</iyz>
+                    <izz>7.658e-05</izz>
+                </inertia>
+                <mass>0.12</mass>
+                <pose>-0.0013 0 0 0 0 0</pose>
+            </inertial>
+            <pose>0 -0.122 -1.213 1.5708 0 0</pose>
+            <visual name="r_ankle_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Legs_Ankle_CrossGimbal2.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0.006 0 1.5708 0 0</pose>
+            </visual>
+            <visual name="r_ankle_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <link name="r_foot">
+            <inertial>
+                <inertia>
+                    <ixx>0.0068877</ixx>
+                    <ixy>-6.7e-07</ixy>
+                    <ixz>-0.0010049</ixz>
+                    <iyy>0.0058063</iyy>
+                    <iyz>1.98e-06</iyz>
+                    <izz>0.0027324</izz>
+                </inertia>
+                <mass>1.44</mass>
+                <pose>0.0511 0 0.0083 0 0 0</pose>
+            </inertial>
+            <pose>0 -0.122 -1.213 0 1.5708 3.1416</pose>
+            <visual name="r_foot_visual_mesh">
+                <geometry>
+                    <mesh>
+                        <scale>0.001 0.001 0.001</scale>
+                        <uri>model://meshFiles/Right_Foot_Assembly.stl</uri>
+                    </mesh>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>-0.98 -0.12 0.006 1.5708 0 -1.5708</pose>
+            </visual>
+            <visual name="r_foot_visual_jointCylinder">
+                <geometry>
+                    <cylinder>
+                        <length>0.04</length>
+                        <radius>0.015</radius>
+                    </cylinder>
+                </geometry>
+                <material>
+                    <lighting>1</lighting>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.5 0.5 0.5 1</diffuse>
+                    <emissive>0.9 0.9 0.9 1</emissive>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                <pose>0 0 -0.02 0 0 0</pose>
+            </visual>
+        </link>
+        <pose>0 0 0 0 0 0</pose>
+    </model>
+</sdf>

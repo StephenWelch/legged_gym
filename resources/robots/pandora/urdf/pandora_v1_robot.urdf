@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<robot name="pandora_v1">
+  <link name="pelvis">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0042 -0.0001 -0.123"/>
+      <mass value="4.59"/>
+      <inertia ixx="0.061198" ixy="2.599e-05" ixz="-0.0014946" iyy="0.038686" iyz="-1.731e-05" izz="0.051938"/>
+    </inertial>
+    <visual><!--pelvis_visual_mesh-->
+      <origin rpy="0 0 1.5708" xyz="0 0 -0.2317"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Hip_Assembly.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--pelvis_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.25"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="l_hipgimbal">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.0111"/>
+      <mass value="0.06"/>
+      <inertia ixx="1.839e-05" ixy="0" ixz="-5e-08" iyy="2.863e-05" iyz="0" izz="1.205e-05"/>
+    </inertial>
+    <visual><!--l_hipgimbal_visual_mesh-->
+      <origin rpy="1.5708 0 0" xyz="0 0.008 -0.006"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Cross_Gimble.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--l_hipgimbal_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+  </link>
+  <link name="l_glute">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0199 0.0044 0.0001"/>
+      <mass value="0.32"/>
+      <inertia ixx="0.00081566" ixy="-6.957e-05" ixz="-4.413e-05" iyy="0.00075703" iyz="2.643e-05" izz="0.00042333"/>
+    </inertial>
+    <visual><!--l_glute_visual_mesh-->
+      <origin rpy="-1.5708 0 1.5708" xyz="-0.0435 -0.12 -0.003"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Thigh_Top_Left_Ass.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--l_glute_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+  </link>
+  <link name="l_thigh">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0175 -0.2229 0.0033"/>
+      <mass value="3.38"/>
+      <inertia ixx="0.048925" ixy="-0.0064901" ixz="0.00048725" iyy="0.016526" iyz="0.00025689" izz="0.056003"/>
+    </inertial>
+    <visual><!--l_thigh_visual_mesh-->
+      <origin rpy="0 1.5708 1.5708" xyz="0 0.1 0.12"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Thigh_Left_Assembly.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--l_thigh_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+  </link>
+  <link name="l_shin">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0173 -0.2062 0.0002"/>
+      <mass value="3.19"/>
+      <inertia ixx="0.038212" ixy="0.0030238" ixz="3.901e-05" iyy="0.010896" iyz="-7.491e-05" izz="0.036914"/>
+    </inertial>
+    <visual><!--l_shin_visual_mesh-->
+      <origin rpy="-1.5708 0 -0.07854" xyz="-0.00099692 7.8459e-05 0.025"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Left_Shin_Assembly.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--l_shin_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+  </link>
+  <link name="l_ankle">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0013 0 0"/>
+      <mass value="0.12"/>
+      <inertia ixx="4.121e-05" ixy="0" ixz="1e-08" iyy="0.00010976" iyz="0" izz="7.658e-05"/>
+    </inertial>
+    <visual><!--l_ankle_visual_mesh-->
+      <origin rpy="1.5708 0 0" xyz="0 0.006 0"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Legs_Ankle_CrossGimbal2.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--l_ankle_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+  </link>
+  <link name="l_foot">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0511 0 -0.0083"/>
+      <mass value="1.44"/>
+      <inertia ixx="0.0068877" ixy="1.7e-07" ixz="0.0010049" iyy="0.0058063" iyz="5.8e-07" izz="0.0027324"/>
+    </inertial>
+    <visual><!--l_foot_visual_mesh-->
+      <origin rpy="-1.5708 0 1.5708" xyz="-0.98 -0.12 -0.006"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Left_Foot_Assembly.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--l_foot_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="1.57 0 0.85" xyz="0.03 0.03 0."/>
+      <geometry>
+        <box size="0.2 0.10 0.03" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="r_hipgimbal">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0001 0 -0.0111"/>
+      <mass value="0.06"/>
+      <inertia ixx="1.839e-05" ixy="0" ixz="5e-08" iyy="2.863e-05" iyz="0" izz="1.205e-05"/>
+    </inertial>
+    <visual><!--r_hipgimbal_visual_mesh-->
+      <origin rpy="-1.5708 0 0" xyz="0 -0.008 0.006"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Cross_Gimble.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--r_hipgimbal_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+  </link>
+  <link name="r_glute">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0209 0.0038 0.0002"/>
+      <mass value="0.34"/>
+      <inertia ixx="0.00085106" ixy="-7.318e-05" ixz="4.777e-05" iyy="0.00078245" iyz="-3.014e-05" izz="0.00045967"/>
+    </inertial>
+    <visual><!--r_glute_visual_mesh-->
+      <origin rpy="1.5708 0 -1.5708" xyz="-0.044 -0.12 -0.002"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Thigh_Right_Top_Bracket.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--r_glute_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+  </link>
+  <link name="r_thigh">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0174 -0.223 -0.0032"/>
+      <mass value="3.35"/>
+      <inertia ixx="0.048512" ixy="-0.0063862" ixz="-0.00046729" iyy="0.016362" iyz="-0.00030021" izz="0.0556"/>
+    </inertial>
+    <visual><!--r_thigh_visual_mesh-->
+      <origin rpy="0 1.5708 1.5708" xyz="0 0.1 -0.12"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Thigh_Right_Assembly.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--r_thigh_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+  </link>
+  <link name="r_shin">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0173 -0.2061 -0.0004"/>
+      <mass value="3.19"/>
+      <inertia ixx="0.038172" ixy="0.0030357" ixz="-5.826e-05" iyy="0.010886" iyz="0.00013376" izz="0.036883"/>
+    </inertial>
+    <visual><!--r_shin_visual_mesh-->
+      <origin rpy="-1.5708 0 -0.07854" xyz="-0.00099692 7.8459e-05 0.025"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Right_Shin_Assembly.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--r_shin_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+  </link>
+  <link name="r_ankle">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-0.0013 0 0"/>
+      <mass value="0.12"/>
+      <inertia ixx="4.121e-05" ixy="0" ixz="-1e-08" iyy="0.00010976" iyz="0" izz="7.658e-05"/>
+    </inertial>
+    <visual><!--r_ankle_visual_mesh-->
+      <origin rpy="1.5708 0 0" xyz="0 0.006 0"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Legs_Ankle_CrossGimbal2.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--r_ankle_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+  </link>
+  <link name="r_foot"> 
+    <inertial>
+      <origin rpy="0 0 0" xyz="0.0511 0 0.0083"/>
+      <mass value="1.44"/>
+      <inertia ixx="0.0068877" ixy="-6.7e-07" ixz="-0.0010049" iyy="0.0058063" iyz="1.98e-06" izz="0.0027324"/>
+    </inertial>
+    <visual><!--r_foot_visual_mesh-->
+      <origin rpy="1.5708 0 -1.5708" xyz="-0.98 -0.12 0.006"/>
+      <geometry>
+        <mesh filename="../mesh/full_build_STL/Right_Foot_Assembly.stl" scale="0.001"/>
+      </geometry>
+    </visual>
+    <visual><!--r_foot_visual_jointCylinder-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.04" radius="0.015"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="1.57 0 0.85" xyz="0.03 0.03 0."/>
+      <geometry>
+        <box size="0.2 0.10 0.03" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="ll1_hip_yaw" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 0.122 -0.277"/>
+    <parent link="pelvis"/>
+    <child link="l_hipgimbal"/>
+    <limit effort="100" lower="-0.6" upper="0.6" velocity="12"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+  <joint name="ll2_hip_rol" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 1.5708 0" xyz="0 0 0"/>
+    <parent link="l_hipgimbal"/>
+    <child link="l_glute"/>
+    <limit effort="100" lower="-0.6" upper="0.6" velocity="10"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+  <joint name="ll3_hip_pit" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 -1.5708 1.5708" xyz="0.054 0 0"/>
+    <parent link="l_glute"/>
+    <child link="l_thigh"/>
+    <limit effort="100" lower="-1" upper="1.2" velocity="12"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+  <joint name="ll4_kne_pit" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 -0.448 0"/>
+    <parent link="l_thigh"/>
+    <child link="l_shin"/>
+    <limit effort="100" lower="-2" upper="0" velocity="12"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+  <joint name="ll5_ank_pit" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 -0.434 0"/>
+    <parent link="l_shin"/>
+    <child link="l_ankle"/>
+    <limit effort="100" lower="-0.6" upper="0.9" velocity="12"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+  <joint name="ll6_ank_rol" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="-1.5708 0 -1.5708" xyz="0 0 0"/>
+    <parent link="l_ankle"/>
+    <child link="l_foot"/>
+    <limit effort="100" lower="-0.6" upper="0.6" velocity="12"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+  <joint name="rl1_hip_yaw" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="3.1416 0 0" xyz="0 -0.122 -0.277"/>
+    <parent link="pelvis"/>
+    <child link="r_hipgimbal"/>
+    <limit effort="100" lower="-0.6" upper="0.6" velocity="12"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+  <joint name="rl2_hip_rol" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 -1.5708 0" xyz="0 0 0"/>
+    <parent link="r_hipgimbal"/>
+    <child link="r_glute"/>
+    <limit effort="100" lower="-0.6" upper="0.6" velocity="10"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+  <joint name="rl3_hip_pit" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 1.5708 1.5708" xyz="0.054 0 0"/>
+    <parent link="r_glute"/>
+    <child link="r_thigh"/>
+    <limit effort="100" lower="-1" upper="1.2" velocity="12"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+  <joint name="rl4_kne_pit" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 -0.448 0"/>
+    <parent link="r_thigh"/>
+    <child link="r_shin"/>
+    <limit effort="100" lower="-2" upper="0" velocity="12"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+  <joint name="rl5_ank_pit" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="0 0 0" xyz="0 -0.434 0"/>
+    <parent link="r_shin"/>
+    <child link="r_ankle"/>
+    <limit effort="100" lower="-0.6" upper="0.9" velocity="12"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+  <joint name="rl6_ank_rol" type="revolute">
+    <axis xyz="0 0 1"/>
+    <origin rpy="1.5708 0 -1.5708" xyz="0 0 0"/>
+    <parent link="r_ankle"/>
+    <child link="r_foot"/>
+    <limit effort="100" lower="-0.6" upper="0.6" velocity="12"/>
+    <dynamics damping="0.1" friction="0"/>
+  </joint>
+</robot>
