@@ -33,14 +33,15 @@ from legged_gym.envs.base.legged_robot_config import LeggedRobotCfg, LeggedRobot
 class CassieFlatCfg( LeggedRobotCfg ):
     class env( LeggedRobotCfg.env):
         num_envs = 4096
-        num_observations = 169
+        num_observations = 48
         num_actions = 12
 
     
     class terrain( LeggedRobotCfg.terrain):
+        mesh_type = 'trimesh'
         mesh_type = 'plane'
         measure_heights = False
-
+          
     class init_state( LeggedRobotCfg.init_state ):
         pos = [0.0, 0.0, 1.] # x,y,z [m]
         default_joint_angles = { # = target angles [rad] when action = 0.0
@@ -104,9 +105,11 @@ class CassieFlatCfgPPO( LeggedRobotCfgPPO ):
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'flat_cassie'
+        max_iterations = 300
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
         entropy_coef = 0.01
+        
 
 
 
