@@ -43,7 +43,7 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         measure_heights = False
           
     class init_state( LeggedRobotCfg.init_state ):
-        pos = [0.0, 0.0, 1.] # x,y,z [m]
+        pos = [0.0, 0.0, 1.27] # x,y,z [m]
         default_joint_angles = { # = target angles [rad] when action = 0.0
             'll1_hip_yaw': 0.,
             'll2_hip_rol': 0.,

@@ -159,10 +159,19 @@
         <color rgba="0.1 0.1 0.1 0.8"/>
       </material>
     </visual>
-    <collision>
-      <origin rpy="1.57 0 0.85" xyz="0.03 0.03 0."/>
+    <visual><!--r_foot_visual_colision-->
+      <origin rpy="0.0 0.0 0.0" xyz="0.1 0.0 0.0"/>
       <geometry>
-        <box size="0.2 0.10 0.03" />
+        <box size="0.03 0.10 0.2" />
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0.0 0.0" xyz="0.1 0.0 0.0"/>
+      <geometry>
+        <box size="0.03 0.10 0.2" />
       </geometry>
     </collision>
   </link>
@@ -297,10 +306,19 @@
         <color rgba="0.1 0.1 0.1 0.8"/>
       </material>
     </visual>
-    <collision>
-      <origin rpy="1.57 0 0.85" xyz="0.03 0.03 0."/>
+    <visual><!--r_foot_visual_colision-->
+      <origin rpy="0.0 0.0 0.0" xyz="0.1 0.0 0.0"/>
       <geometry>
-        <box size="0.2 0.10 0.03" />
+        <box size="0.03 0.10 0.2" />
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0.0 0.0" xyz="0.1 0.0 0.0"/>
+      <geometry>
+        <box size="0.03 0.10 0.2" />
       </geometry>
     </collision>
   </link>
