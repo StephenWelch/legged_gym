@@ -43,7 +43,7 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         measure_heights = False
           
     class init_state( LeggedRobotCfg.init_state ):
-        pos = [0.0, 0.0, 1.27] # x,y,z [m]
+        pos = [0.0, 0.0, 1.35] # x,y,z [m]
         default_joint_angles = { # = target angles [rad] when action = 0.0
             'll1_hip_yaw': 0.,
             'll2_hip_rol': 0.,
@@ -63,18 +63,18 @@ class PandoraFlatCfg( LeggedRobotCfg ):
     class control( LeggedRobotCfg.control ):
         # PD Drive parameters:
         stiffness = { 
-            'll1_hip_yaw': 100.,
-            'll2_hip_rol': 100.,
-            'll3_hip_pit': 200.,
-            'll4_kne_pit': 200.,
-            'll5_ank_pit': 200.,
+            'll1_hip_yaw': 40.,
+            'll2_hip_rol': 40.,
+            'll3_hip_pit': 40.,
+            'll4_kne_pit': 40.,
+            'll5_ank_pit': 40.,
             'll6_ank_rol': 40.,
 
-            'rl1_hip_yaw': 100.,
-            'rl2_hip_rol': 100.,
-            'rl3_hip_pit': 200.,
-            'rl4_kne_pit': 200.,
-            'rl5_ank_pit': 200.,
+            'rl1_hip_yaw': 40.,
+            'rl2_hip_rol': 40.,
+            'rl3_hip_pit': 40.,
+            'rl4_kne_pit': 40.,
+            'rl5_ank_pit': 40.,
             'rl6_ank_rol': 40.
         }  # [N*m/rad]
         damping = {
