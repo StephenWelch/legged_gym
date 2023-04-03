@@ -3,8 +3,8 @@
   <link name="pelvis">
     <inertial>
       <origin rpy="0 0 0" xyz="-0.0042 -0.0001 -0.123"/>
-      <mass value="4.59"/>
-      <inertia ixx="0.061198" ixy="2.599e-05" ixz="-0.0014946" iyy="0.038686" iyz="-1.731e-05" izz="0.051938"/>
+      <mass value="14.59"/>
+      <inertia ixx="1.061198" ixy="2.599e-05" ixz="-0.0014946" iyy="1.038686" iyz="-1.731e-05" izz="1.051938"/>
     </inertial>
     <visual><!--pelvis_visual_mesh-->
       <origin rpy="0 0 1.5708" xyz="0 0 -0.2317"/>

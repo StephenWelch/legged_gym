@@ -32,7 +32,7 @@ from legged_gym.envs.base.legged_robot_config import LeggedRobotCfg, LeggedRobot
 
 class PandoraFlatCfg( LeggedRobotCfg ):
     class env( LeggedRobotCfg.env):
-        num_envs = 100#4096
+        num_envs = 4096
         num_observations = 48
         num_actions = 12
 
@@ -62,35 +62,36 @@ class PandoraFlatCfg( LeggedRobotCfg ):
 
     class control( LeggedRobotCfg.control ):
         # PD Drive parameters:
+        lbd=10.0
         stiffness = { 
-            'll1_hip_yaw': 40.,
-            'll2_hip_rol': 40.,
-            'll3_hip_pit': 40.,
-            'll4_kne_pit': 40.,
-            'll5_ank_pit': 40.,
-            'll6_ank_rol': 40.,
+            'll1_hip_yaw': lbd**2/4,
+            'll2_hip_rol': lbd**2/4,
+            'll3_hip_pit': lbd**2,
+            'll4_kne_pit': lbd**2,
+            'll5_ank_pit': lbd**2/4,
+            'll6_ank_rol': lbd**2/4,
 
-            'rl1_hip_yaw': 40.,
-            'rl2_hip_rol': 40.,
-            'rl3_hip_pit': 40.,
-            'rl4_kne_pit': 40.,
-            'rl5_ank_pit': 40.,
-            'rl6_ank_rol': 40.
+            'rl1_hip_yaw': lbd**2/4,
+            'rl2_hip_rol': lbd**2/4,
+            'rl3_hip_pit': lbd**2,
+            'rl4_kne_pit': lbd**2,
+            'rl5_ank_pit': lbd**2/4,
+            'rl6_ank_rol': lbd**2/4
         }  # [N*m/rad]
         damping = {
-            'll1_hip_yaw': 3.,
-            'll2_hip_rol': 3.,
-            'll3_hip_pit': 6.,
-            'll4_kne_pit': 6.,
-            'll5_ank_pit': 6.,
-            'll6_ank_rol': 1.,
+            'll1_hip_yaw': 2*lbd,
+            'll2_hip_rol': 2*lbd,
+            'll3_hip_pit': 2*lbd,
+            'll4_kne_pit': 2*lbd,
+            'll5_ank_pit': 2*lbd,
+            'll6_ank_rol': 2*lbd,
 
-            'rl1_hip_yaw': 3.,
-            'rl2_hip_rol': 3.,
-            'rl3_hip_pit': 6.,
-            'rl4_kne_pit': 6.,
-            'rl5_ank_pit': 6.,
-            'rl6_ank_rol': 1.
+            'rl1_hip_yaw': 2*lbd,
+            'rl2_hip_rol': 2*lbd,
+            'rl3_hip_pit': 2*lbd,
+            'rl4_kne_pit': 2*lbd,
+            'rl5_ank_pit': 2*lbd,
+            'rl6_ank_rol': 2*lbd
         }  # [N*m*s/rad]
         # action scale: target angle = actionScale * action + defaultAngle
         action_scale = 0.5
@@ -112,24 +113,25 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         max_contact_force = 300.
         only_positive_rewards = False
         class scales( LeggedRobotCfg.rewards.scales ):
-            termination = -200.
+            termination = -300.
             tracking_ang_vel = 1.0
             torques = -5.e-6
             dof_acc = -2.e-7
-            lin_vel_z = -0.5
-            feet_air_time = 5.
+            lin_vel_z = -0.7
+            feet_air_time = 2.
             dof_pos_limits = -1.
             no_fly = 0.25
             dof_vel = -0.0
             ang_vel_xy = -0.0
             feet_contact_forces = -0.
+            stumble = -125.0 
 
 class PandoraFlatCfgPPO( LeggedRobotCfgPPO ):
     
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'flat_pandora'
-        max_iterations = 500
+        max_iterations = 300
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
         entropy_coef = 0.01
