@@ -43,7 +43,7 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         measure_heights = False
           
     class init_state( LeggedRobotCfg.init_state ):
-        pos = [0.0, 0.0, 1.35] # x,y,z [m]
+        pos = [0.0, 0.0, 1.38] # x,y,z [m]
         default_joint_angles = { # = target angles [rad] when action = 0.0
             'll1_hip_yaw': 0.,
             'll2_hip_rol': 0.,
@@ -64,19 +64,19 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         # PD Drive parameters:
         lbd=10.0
         stiffness = { 
-            'll1_hip_yaw': lbd**2/4,
-            'll2_hip_rol': lbd**2/4,
+            'll1_hip_yaw': lbd**2,
+            'll2_hip_rol': lbd**2,
             'll3_hip_pit': lbd**2,
             'll4_kne_pit': lbd**2,
-            'll5_ank_pit': lbd**2/4,
-            'll6_ank_rol': lbd**2/4,
+            'll5_ank_pit': lbd**2/2,
+            'll6_ank_rol': lbd**2/2,
 
-            'rl1_hip_yaw': lbd**2/4,
-            'rl2_hip_rol': lbd**2/4,
+            'rl1_hip_yaw': lbd**2,
+            'rl2_hip_rol': lbd**2,
             'rl3_hip_pit': lbd**2,
             'rl4_kne_pit': lbd**2,
-            'rl5_ank_pit': lbd**2/4,
-            'rl6_ank_rol': lbd**2/4
+            'rl5_ank_pit': lbd**2/2,
+            'rl6_ank_rol': lbd**2/2
         }  # [N*m/rad]
         damping = {
             'll1_hip_yaw': 2*lbd,
@@ -107,35 +107,46 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
   
     class rewards( LeggedRobotCfg.rewards ):
-        soft_dof_pos_limit = 0.95
-        soft_dof_vel_limit = 0.9
-        soft_torque_limit = 0.9
-        max_contact_force = 300.
+        soft_dof_pos_limit = 1.
+        soft_dof_vel_limit = 1.
+        soft_torque_limit = 1.
+        max_contact_force = 500.
         only_positive_rewards = False
         class scales( LeggedRobotCfg.rewards.scales ):
-            termination = -300.
+            termination = -200.
             tracking_ang_vel = 1.0
             torques = -5.e-6
             dof_acc = -2.e-7
-            lin_vel_z = -0.7
-            feet_air_time = 2.
+            lin_vel_z = -0.5
+            feet_air_time = 5.
             dof_pos_limits = -1.
             no_fly = 0.25
             dof_vel = -0.0
             ang_vel_xy = -0.0
             feet_contact_forces = -0.
-            stumble = -125.0 
+            #stumble = -125.0 
+   
+    class domain_rand:
+        randomize_friction = True
+        friction_range = [0.5, 1.25]
+        randomize_base_mass = False
+        added_mass_range = [-1., 1.]
+        push_robots = True
+        push_interval_s = 15
+        max_push_vel_xy = 1.
+
 
 class PandoraFlatCfgPPO( LeggedRobotCfgPPO ):
     
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'flat_pandora'
-        max_iterations = 300
+        max_iterations = 250
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
         entropy_coef = 0.01
-        
+        learning_rate = 5.e-4
+        gamma = 0.99
 
 
 
