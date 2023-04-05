@@ -42,6 +42,7 @@ from .a1.a1_config import A1RoughCfg, A1RoughCfgPPO
 #New
 from .cassie.cassie_flat_config import CassieFlatCfg, CassieFlatCfgPPO
 from .pandora.pandora_config import PandoraFlatCfg, PandoraFlatCfgPPO
+from .pandora.rough.pandora_rough_config import PandoraRoughCfg, PandoraRoughCfgPPO
 from .pandora.pandora import Pandora
 
 import os
@@ -57,3 +58,4 @@ task_registry.register( "cassie", Cassie, CassieRoughCfg(), CassieRoughCfgPPO() 
 #New
 task_registry.register( "cassie_flat", Cassie, CassieFlatCfg(), CassieFlatCfgPPO() )
 task_registry.register( "pandora", Pandora, PandoraFlatCfg(), PandoraFlatCfgPPO() )
+task_registry.register( "pandora_rough", Pandora, PandoraRoughCfg(), PandoraRoughCfgPPO() )
