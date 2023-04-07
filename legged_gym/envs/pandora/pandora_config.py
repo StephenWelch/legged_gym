@@ -145,7 +145,7 @@ class PandoraFlatCfgPPO( LeggedRobotCfgPPO ):
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
         entropy_coef = 0.01
-        learning_rate = 5.e-4
+        learning_rate = 1.e-3
         gamma = 0.99
 
 

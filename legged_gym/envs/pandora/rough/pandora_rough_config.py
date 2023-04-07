@@ -104,7 +104,7 @@ class PandoraRoughCfg( LeggedRobotCfg ):
         foot_name = 'foot'
         terminate_after_contacts_on = ['pelvis']
         flip_visual_attachments = False
-        self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
+        self_collisions = 0 # 1 to disable, 0 to enable...bitwise filter
   
     class rewards( LeggedRobotCfg.rewards ):
         soft_dof_pos_limit = 1.
@@ -141,11 +141,11 @@ class PandoraRoughCfgPPO( LeggedRobotCfgPPO ):
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'rough_pandora'
-        max_iterations = 250
+        max_iterations = 5000
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
         entropy_coef = 0.01
-        learning_rate = 5.e-4
+        learning_rate = 1.e-3
         gamma = 0.99
 
 
