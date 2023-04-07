@@ -33,14 +33,14 @@ from legged_gym.envs.base.legged_robot_config import LeggedRobotCfg, LeggedRobot
 class PandoraRoughCfg( LeggedRobotCfg ):
     class env( LeggedRobotCfg.env):
         num_envs = 4096
-        num_observations = 48
+        num_observations = 169
         num_actions = 12
 
     
     class terrain( LeggedRobotCfg.terrain):
-        mesh_type = 'trimesh'
-        mesh_type = 'plane'
-        measure_heights = False
+        measured_points_x = [-0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5] # 1mx1m rectangle (without center line)
+        measured_points_y = [-0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5]
+
           
     class init_state( LeggedRobotCfg.init_state ):
         pos = [0.0, 0.0, 1.38] # x,y,z [m]
