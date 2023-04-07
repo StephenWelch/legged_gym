@@ -32,7 +32,7 @@ from legged_gym.envs.base.legged_robot_config import LeggedRobotCfg, LeggedRobot
 
 class PandoraFlatCfg( LeggedRobotCfg ):
     class env( LeggedRobotCfg.env):
-        num_envs = 100 #4096
+        num_envs = 4096
         num_observations = 48
         num_actions = 12
 
@@ -104,7 +104,7 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         foot_name = 'foot'
         terminate_after_contacts_on = ['pelvis']
         flip_visual_attachments = False
-        self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
+        self_collisions = 0 # 1 to disable, 0 to enable...bitwise filter
   
     class rewards( LeggedRobotCfg.rewards ):
         soft_dof_pos_limit = 1.
@@ -141,7 +141,7 @@ class PandoraFlatCfgPPO( LeggedRobotCfgPPO ):
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'flat_pandora'
-        max_iterations = 500
+        max_iterations = 300
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
         entropy_coef = 0.01
