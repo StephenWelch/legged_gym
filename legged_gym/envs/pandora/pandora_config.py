@@ -100,6 +100,7 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         
     class asset( LeggedRobotCfg.asset ):
         file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot.urdf'
+        #file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot_colission.urdf'
         name = "pandora_v1"
         foot_name = 'foot'
         terminate_after_contacts_on = ['pelvis']
@@ -141,7 +142,7 @@ class PandoraFlatCfgPPO( LeggedRobotCfgPPO ):
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'flat_pandora'
-        max_iterations = 300
+        max_iterations = 500
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
         entropy_coef = 0.01

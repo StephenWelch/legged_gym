@@ -115,6 +115,21 @@
         <color rgba="0.1 0.1 0.1 0.8"/>
       </material>
     </visual>
+    <visual><!--colision vision-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>    
+    <collision>
+      <origin rpy="0 0 0" xyz="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+    </collision>
   </link>
   <link name="l_ankle">
     <inertial>
@@ -262,6 +277,21 @@
         <color rgba="0.1 0.1 0.1 0.8"/>
       </material>
     </visual>
+    <visual><!--colision vision-->
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.1 0.1 0.1 0.8"/>
+      </material>
+    </visual>    
+    <collision>
+      <origin rpy="0 0 0" xyz="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+    </collision>
   </link>
   <link name="r_ankle">
     <inertial>

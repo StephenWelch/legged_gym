@@ -99,7 +99,8 @@ class PandoraRoughCfg( LeggedRobotCfg ):
         decimation = 4
         
     class asset( LeggedRobotCfg.asset ):
-        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot.urdf'
+        #file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot.urdf'
+        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot_colission.urdf'
         name = "pandora_v1"
         foot_name = 'foot'
         terminate_after_contacts_on = ['pelvis']
