@@ -99,8 +99,8 @@ class PandoraRoughCfg( LeggedRobotCfg ):
         decimation = 4
         
     class asset( LeggedRobotCfg.asset ):
-        #file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot.urdf'
-        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot_colission.urdf'
+        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot.urdf'
+        #file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot_colission.urdf'
         name = "pandora_v1"
         foot_name = 'foot'
         terminate_after_contacts_on = ['pelvis']
@@ -114,6 +114,7 @@ class PandoraRoughCfg( LeggedRobotCfg ):
         max_contact_force = 500.
         only_positive_rewards = False
         class scales( LeggedRobotCfg.rewards.scales ):
+            tracking_lin_vel = 20.0
             termination = -200.
             tracking_ang_vel = 1.0
             torques = -5.e-6
@@ -142,7 +143,13 @@ class PandoraRoughCfgPPO( LeggedRobotCfgPPO ):
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'rough_pandora'
-        max_iterations = 5000
+        max_iterations = 1500
+        
+        # load and resume
+        resume = False
+        load_run = -1 # -1 = last run
+        checkpoint = -1 # -1 = last saved model
+        resume_path = None # updated from load_run and chkpt
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
         entropy_coef = 0.01

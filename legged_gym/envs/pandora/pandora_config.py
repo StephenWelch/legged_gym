@@ -142,7 +142,14 @@ class PandoraFlatCfgPPO( LeggedRobotCfgPPO ):
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'flat_pandora'
-        max_iterations = 500
+        max_iterations = 15
+        
+        # load and resume
+        resume = False
+        load_run = -1 # -1 = last run
+        #load_run = "Apr13_10-53-54_"
+        checkpoint = -1 # -1 = last saved model
+        resume_path = None # updated from load_run and chkpt
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
         entropy_coef = 0.01
