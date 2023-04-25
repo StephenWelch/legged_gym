@@ -99,42 +99,112 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         decimation = 4
         
     class asset( LeggedRobotCfg.asset ):
-        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot.urdf'
-        #file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot_colission.urdf'
+        #file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot.urdf'
+        file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/pandora/urdf/pandora_v1_robot_colission.urdf'
         name = "pandora_v1"
         foot_name = 'foot'
         terminate_after_contacts_on = ['pelvis']
         flip_visual_attachments = False
         self_collisions = 0 # 1 to disable, 0 to enable...bitwise filter
-  
+
+#Scenario 1 Complete
+    # class rewards( LeggedRobotCfg.rewards ):
+        # only_positive_rewards = False
+        # tracking_sigma = 0.25 # tracking reward = exp(-error^2/sigma)
+        # soft_dof_pos_limit = 1.
+        # soft_dof_vel_limit = 1.
+        # soft_torque_limit = 1.
+        # base_height_target = 1.
+        # max_contact_force = 500.
+
+        # class scales( LeggedRobotCfg.rewards.scales ):
+        #     termination = -200.
+        #     tracking_lin_vel = 1.0
+        #     tracking_ang_vel = 1.0
+        #     lin_vel_z = -0.5
+        #     ang_vel_xy = -0.0
+        #     orientation = -0.
+        #     torques = -5.e-6
+        #     dof_vel = -0.0
+        #     dof_acc = -2.e-7
+        #     base_height= -0.
+        #     feet_air_time = 5.
+        #     collision= -1
+        #     stumble = -0. 
+        #     action_rate = -0.01
+        #     stand_still = -0.
+        #     feet_contact_forces = -0.
+        #     no_fly = 0.25
+        #     dof_pos_limits = -1.
+
+#Scenario 2 Basic
     class rewards( LeggedRobotCfg.rewards ):
-        soft_dof_pos_limit = 1.
-        soft_dof_vel_limit = 1.
-        soft_torque_limit = 1.
-        max_contact_force = 500.
         only_positive_rewards = False
+        tracking_sigma = 0.25 # tracking reward = exp(-error^2/sigma)
+        soft_dof_pos_limit = 0.
+        soft_dof_vel_limit = 0.
+        soft_torque_limit = 0.
+        base_height_target = 0.
+        max_contact_force = 50000.
+
         class scales( LeggedRobotCfg.rewards.scales ):
-            termination = -200.
-            tracking_ang_vel = 1.0
+            termination = -0.
+            tracking_lin_vel = 1.0
+            tracking_ang_vel = 0.
+            lin_vel_z = 0.
+            ang_vel_xy = 0.
+            orientation = -0.
             torques = -5.e-6
-            dof_acc = -2.e-7
-            lin_vel_z = -0.5
-            feet_air_time = 5.
-            dof_pos_limits = -1.
-            no_fly = 0.25
             dof_vel = -0.0
-            ang_vel_xy = -0.0
+            dof_acc = -0.
+            base_height= -0.
+            feet_air_time = 0.
+            collision= -0.
+            stumble = -0. 
+            action_rate = -0.
+            stand_still = -0.
             feet_contact_forces = -0.
-            #stumble = -125.0 
-   
-    class domain_rand:
-        randomize_friction = True
-        friction_range = [0.5, 1.25]
-        randomize_base_mass = False
-        added_mass_range = [-1., 1.]
-        push_robots = True
-        push_interval_s = 15
-        max_push_vel_xy = 1.
+            no_fly = 0.0
+            dof_pos_limits = -0.
+
+#Scenario 3 Partial
+    # class rewards( LeggedRobotCfg.rewards ):
+    #     only_positive_rewards = False
+    #     tracking_sigma = 0.25 # tracking reward = exp(-error^2/sigma)
+    #     soft_dof_pos_limit = 0.
+    #     soft_dof_vel_limit = 0.
+    #     soft_torque_limit = 0.
+    #     base_height_target = 0.
+    #     max_contact_force = 50000.
+
+    #     class scales( LeggedRobotCfg.rewards.scales ):
+    #         termination = -200.
+    #         tracking_lin_vel = 1.0
+    #         tracking_ang_vel = 0.
+    #         lin_vel_z = 0.
+    #         ang_vel_xy = 0.
+    #         orientation = -0.
+    #         torques = -5.e-6
+    #         dof_vel = -0.0
+    #         dof_acc = -0.
+    #         base_height= -0.
+    #         feet_air_time = 0.
+    #         collision= -0.
+    #         stumble = -0. 
+    #         action_rate = -0.
+    #         stand_still = -0.
+    #         feet_contact_forces = -0.
+    #         no_fly = 0.0
+    #         dof_pos_limits = -0.
+
+    # class domain_rand:
+    #     randomize_friction = True
+    #     friction_range = [0.5, 1.25]
+    #     randomize_base_mass = False
+    #     added_mass_range = [-1., 1.]
+    #     push_robots = True
+    #     push_interval_s = 15
+    #     max_push_vel_xy = 1.
 
 
 class PandoraFlatCfgPPO( LeggedRobotCfgPPO ):
@@ -142,7 +212,7 @@ class PandoraFlatCfgPPO( LeggedRobotCfgPPO ):
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'flat_pandora'
-        max_iterations = 15
+        max_iterations = 200
         
         # load and resume
         resume = False

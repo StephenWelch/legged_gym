@@ -33,15 +33,18 @@ from legged_gym.envs.base.legged_robot_config import LeggedRobotCfg, LeggedRobot
 class PandoraRoughCfg( LeggedRobotCfg ):
     class env( LeggedRobotCfg.env):
         num_envs = 4096
-        num_observations = 169
+        num_observations = 673
         num_actions = 12
 
     
     class terrain( LeggedRobotCfg.terrain):
-        measured_points_x = [-0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5] # 1mx1m rectangle (without center line)
-        measured_points_y = [-0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5]
+        # measured_points_x = [-0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5] # 1mx1m rectangle (without center line)
+        # measured_points_y = [-0.5, -0.4, -0.3, -0.2, -0.1, 0., 0.1, 0.2, 0.3, 0.4, 0.5]
 
-          
+        measured_points_x = [-0.6, -0.55, -0.5, -0.45, -0.4, -0.35, -0.3, -0.25, -0.2, -0.15, -0.1, -0.05, 0., 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6] # 1mx1m rectangle (without center line)
+        measured_points_y = [-0.6, -0.55, -0.5, -0.45, -0.4, -0.35, -0.3, -0.25, -0.2, -0.15, -0.1, -0.05, 0., 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6]
+
+
     class init_state( LeggedRobotCfg.init_state ):
         pos = [0.0, 0.0, 1.38] # x,y,z [m]
         default_joint_angles = { # = target angles [rad] when action = 0.0
@@ -106,27 +109,37 @@ class PandoraRoughCfg( LeggedRobotCfg ):
         terminate_after_contacts_on = ['pelvis']
         flip_visual_attachments = False
         self_collisions = 0 # 1 to disable, 0 to enable...bitwise filter
-  
+
+#Scenario 1
     class rewards( LeggedRobotCfg.rewards ):
+        only_positive_rewards = False
+        tracking_sigma = 0.25 # tracking reward = exp(-error^2/sigma)
         soft_dof_pos_limit = 1.
         soft_dof_vel_limit = 1.
         soft_torque_limit = 1.
+        base_height_target = 1.
         max_contact_force = 500.
-        only_positive_rewards = False
+
         class scales( LeggedRobotCfg.rewards.scales ):
-            tracking_lin_vel = 20.0
             termination = -200.
+            tracking_lin_vel = 1.0
             tracking_ang_vel = 1.0
-            torques = -5.e-6
-            dof_acc = -2.e-7
             lin_vel_z = -0.5
-            feet_air_time = 5.
-            dof_pos_limits = -1.
-            no_fly = 0.25
-            dof_vel = -0.0
             ang_vel_xy = -0.0
+            orientation = -0.
+            torques = -5.e-6
+            dof_vel = -0.0
+            dof_acc = -2.e-7
+            base_height= -0.
+            feet_air_time = 5.
+            collision= -1
+            stumble = -0. 
+            action_rate = -0.01
+            # stand_still = -0. # s1
+            stand_still = -1. # s2
             feet_contact_forces = -0.
-            #stumble = -125.0 
+            no_fly = 0.25
+            dof_pos_limits = -1.
    
     class domain_rand:
         randomize_friction = True
@@ -143,7 +156,7 @@ class PandoraRoughCfgPPO( LeggedRobotCfgPPO ):
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'rough_pandora'
-        max_iterations = 1500
+        max_iterations = 3000
         
         # load and resume
         resume = False
@@ -153,7 +166,7 @@ class PandoraRoughCfgPPO( LeggedRobotCfgPPO ):
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
         entropy_coef = 0.01
-        learning_rate = 1.e-3
+        learning_rate = 1.e-4
         gamma = 0.99
 
 
