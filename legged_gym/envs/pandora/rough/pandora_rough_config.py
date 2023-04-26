@@ -110,7 +110,7 @@ class PandoraRoughCfg( LeggedRobotCfg ):
         flip_visual_attachments = False
         self_collisions = 0 # 1 to disable, 0 to enable...bitwise filter
 
-#Scenario 1
+#Scenario 1 - No change
     class rewards( LeggedRobotCfg.rewards ):
         only_positive_rewards = False
         tracking_sigma = 0.25 # tracking reward = exp(-error^2/sigma)
@@ -135,8 +135,7 @@ class PandoraRoughCfg( LeggedRobotCfg ):
             collision= -1
             stumble = -0. 
             action_rate = -0.01
-            # stand_still = -0. # s1
-            stand_still = -1. # s2
+            stand_still = -0.
             feet_contact_forces = -0.
             no_fly = 0.25
             dof_pos_limits = -1.
