@@ -155,12 +155,15 @@ class PandoraRoughCfgPPO( LeggedRobotCfgPPO ):
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'rough_pandora'
-        max_iterations = 3000
+        max_iterations = 30000
         
         # load and resume
-        resume = False
-        load_run = -1 # -1 = last run
-        checkpoint = -1 # -1 = last saved model
+        # resume = False
+        # load_run = -1 # -1 = last run
+        # checkpoint = -1 # -1 = last saved model
+        resume = True
+        load_run = "Apr26_14-00-18_"
+        checkpoint = 12000 # -1 = last saved model
         resume_path = None # updated from load_run and chkpt
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
