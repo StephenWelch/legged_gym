@@ -161,9 +161,12 @@ class PandoraRoughCfgPPO( LeggedRobotCfgPPO ):
         # resume = False
         # load_run = -1 # -1 = last run
         # checkpoint = -1 # -1 = last saved model
-        resume = True
-        load_run = "Apr26_14-00-18_"
-        checkpoint = 12000 # -1 = last saved model
+        # resume = True
+        resume = False
+        # load_run = "Apr26_14-00-18_"
+        load_run = -1
+        # checkpoint = 12000 # -1 = last saved model
+        checkpoint = -1
         resume_path = None # updated from load_run and chkpt
 
     class algorithm( LeggedRobotCfgPPO.algorithm):
