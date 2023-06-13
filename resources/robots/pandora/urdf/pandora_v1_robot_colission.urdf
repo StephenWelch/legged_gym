@@ -12,15 +12,15 @@
         <mesh filename="../meshes/full_build_STL/Hip_Assembly.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--pelvis_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual> 
+<!--    <visual>&lt;!&ndash;pelvis_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual> -->
     <collision>
       <origin rpy="0 0 0" xyz="0. 0. 0."/>
       <geometry>
@@ -40,15 +40,15 @@
         <mesh filename="../meshes/full_build_STL/Cross_Gimble.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--l_hipgimbal_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
+<!--    <visual>&lt;!&ndash;l_hipgimbal_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
   </link>
   <link name="l_glute">
     <inertial>
@@ -62,15 +62,15 @@
         <mesh filename="../meshes/full_build_STL/Thigh_Top_Left_Ass.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--l_glute_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
+<!--    <visual>&lt;!&ndash;l_glute_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
   </link>
   <link name="l_thigh">
     <inertial>
@@ -84,15 +84,15 @@
         <mesh filename="../meshes/full_build_STL/Thigh_Left_Assembly.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--l_thigh_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
+<!--    <visual>&lt;!&ndash;l_thigh_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
   </link>
   <link name="l_shin">
     <inertial>
@@ -106,24 +106,24 @@
         <mesh filename="../meshes/full_build_STL/Left_Shin_Assembly.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--l_shin_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
-    <visual><!--colision vision-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <sphere radius="0.1"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>    
+<!--    <visual>&lt;!&ndash;l_shin_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
+<!--    <visual>&lt;!&ndash;colision vision&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <sphere radius="0.1"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>    -->
     <collision>
       <origin rpy="0 0 0" xyz="0. 0. 0."/>
       <geometry>
@@ -143,15 +143,15 @@
         <mesh filename="../meshes/full_build_STL/Legs_Ankle_CrossGimbal2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--l_ankle_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
+<!--    <visual>&lt;!&ndash;l_ankle_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
   </link>
   <link name="l_foot">
     <inertial>
@@ -165,24 +165,24 @@
         <mesh filename="../meshes/full_build_STL/Left_Foot_Assembly.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--l_foot_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
-    <visual><!--r_foot_visual_colision-->
-      <origin rpy="0.0 0.0 0.0" xyz="0.08 0.0 0.02"/>
-      <geometry>
-        <box size="0.03 0.13 0.22" />
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
+<!--    <visual>&lt;!&ndash;l_foot_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
+<!--    <visual>&lt;!&ndash;r_foot_visual_colision&ndash;&gt;-->
+<!--      <origin rpy="0.0 0.0 0.0" xyz="0.08 0.0 0.02"/>-->
+<!--      <geometry>-->
+<!--        <box size="0.03 0.13 0.22" />-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
     <collision>
       <origin rpy="0.0 0.0 0.0" xyz="0.08 0.0 0.02"/>
       <geometry>
@@ -202,15 +202,15 @@
         <mesh filename="../meshes/full_build_STL/Cross_Gimble.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--r_hipgimbal_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
+<!--    <visual>&lt;!&ndash;r_hipgimbal_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
   </link>
   <link name="r_glute">
     <inertial>
@@ -224,15 +224,15 @@
         <mesh filename="../meshes/full_build_STL/Thigh_Right_Top_Bracket.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--r_glute_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
+<!--    <visual>&lt;!&ndash;r_glute_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
   </link>
   <link name="r_thigh">
     <inertial>
@@ -246,15 +246,15 @@
         <mesh filename="../meshes/full_build_STL/Thigh_Right_Assembly.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--r_thigh_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
+<!--    <visual>&lt;!&ndash;r_thigh_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
   </link>
   <link name="r_shin">
     <inertial>
@@ -268,24 +268,24 @@
         <mesh filename="../meshes/full_build_STL/Right_Shin_Assembly.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--r_shin_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
-    <visual><!--colision vision-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <sphere radius="0.1"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>    
+<!--    <visual>&lt;!&ndash;r_shin_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
+<!--    <visual>&lt;!&ndash;colision vision&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <sphere radius="0.1"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>    -->
     <collision>
       <origin rpy="0 0 0" xyz="0. 0. 0."/>
       <geometry>
@@ -305,15 +305,15 @@
         <mesh filename="../meshes/full_build_STL/Legs_Ankle_CrossGimbal2.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--r_ankle_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
+<!--    <visual>&lt;!&ndash;r_ankle_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
   </link>
   <link name="r_foot"> 
     <inertial>
@@ -327,24 +327,24 @@
         <mesh filename="../meshes/full_build_STL/Right_Foot_Assembly.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </visual>
-    <visual><!--r_foot_visual_jointCylinder-->
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.04" radius="0.015"/>
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
-    <visual><!--r_foot_visual_colision-->
-      <origin rpy="0.0 0.0 0.0" xyz="0.08 0.0 -0.02"/>
-      <geometry>
-        <box size="0.03 0.13 0.22" />
-      </geometry>
-      <material name="black">
-        <color rgba="0.1 0.1 0.1 0.8"/>
-      </material>
-    </visual>
+<!--    <visual>&lt;!&ndash;r_foot_visual_jointCylinder&ndash;&gt;-->
+<!--      <origin rpy="0 0 0" xyz="0 0 0"/>-->
+<!--      <geometry>-->
+<!--        <cylinder length="0.04" radius="0.015"/>-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
+<!--    <visual>&lt;!&ndash;r_foot_visual_colision&ndash;&gt;-->
+<!--      <origin rpy="0.0 0.0 0.0" xyz="0.08 0.0 -0.02"/>-->
+<!--      <geometry>-->
+<!--        <box size="0.03 0.13 0.22" />-->
+<!--      </geometry>-->
+<!--      <material name="black">-->
+<!--        <color rgba="0.1 0.1 0.1 0.8"/>-->
+<!--      </material>-->
+<!--    </visual>-->
     <collision>
       <origin rpy="0.0 0.0 0.0" xyz="0.08 0.0 -0.02"/>
       <geometry>
