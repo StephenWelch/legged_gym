@@ -27,6 +27,8 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 # Copyright (c) 2021 ETH Zurich, Nikita Rudin
+from gym import Space
+from gym.spaces import Box
 
 from legged_gym import LEGGED_GYM_ROOT_DIR, envs
 from time import time
@@ -82,8 +84,11 @@ class LeggedRobot(BaseTask):
         Args:
             actions (torch.Tensor): Tensor of shape (num_envs, num_actions_per_env)
         """
+        # TODO hack
+        if not isinstance(actions, torch.Tensor):
+            actions = torch.tensor(actions)
         clip_actions = self.cfg.normalization.clip_actions
-        self.actions = torch.clip(actions, -clip_actions, clip_actions).to(self.device)
+        self.actions = torch.clip(actions, -clip_actions, clip_actions).reshape(1, -1).to(self.device)
         # step physics and render each frame
         self.render()
         for _ in range(self.cfg.control.decimation):
@@ -728,6 +733,16 @@ class LeggedRobot(BaseTask):
     def _parse_cfg(self, cfg):
         self.dt = self.cfg.control.decimation * self.sim_params.dt
         self.obs_scales = self.cfg.normalization.obs_scales
+        self.observation_space = Box(
+            -cfg.normalization.clip_observations,
+            cfg.normalization.clip_observations,
+            (self.cfg.env.num_observations,)
+        )
+        self.action_space = Box(
+            -cfg.normalization.clip_actions,
+            cfg.normalization.clip_actions,
+            (self.cfg.env.num_actions,)
+        )
         self.reward_scales = class_to_dict(self.cfg.rewards.scales)
         self.command_ranges = class_to_dict(self.cfg.commands.ranges)
         if self.cfg.terrain.mesh_type not in ['heightfield', 'trimesh']:
