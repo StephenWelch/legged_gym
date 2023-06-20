@@ -84,9 +84,6 @@ class LeggedRobot(BaseTask):
         Args:
             actions (torch.Tensor): Tensor of shape (num_envs, num_actions_per_env)
         """
-        # TODO hack
-        if not isinstance(actions, torch.Tensor):
-            actions = torch.tensor(actions)
         clip_actions = self.cfg.normalization.clip_actions
         self.actions = torch.clip(actions, -clip_actions, clip_actions).reshape(1, -1).to(self.device)
         # step physics and render each frame

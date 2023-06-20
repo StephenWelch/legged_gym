@@ -1,4 +1,5 @@
 import os
+from dataclasses import dataclass
 
 import isaacgym
 import torch
@@ -18,6 +19,8 @@ import mbrl.util.math
 
 from typing import Optional
 
+from torch import Tensor
+
 from legged_gym.envs import * # This line is required :)
 from legged_gym.utils import get_args, task_registry
 
@@ -25,12 +28,137 @@ EVAL_LOG_FORMAT = mbrl.constants.EVAL_LOG_FORMAT
 
 def train(args):
     env, env_cfg = task_registry.make_env(name=args.task, args=args)
+    env = LeggedRobotWrapper(env, 0, 'cpu')
 
-    def termination_fn(act: torch.Tensor, next_obs: torch.Tensor) -> torch.Tensor:
-        ...
+    @dataclass
+    class LeggedRobotObs:
+        base_lin_vel: Tensor         # (1, 3)
+        base_ang_vel: Tensor         # (1, 3)
+        projected_gravity: Tensor    # (1, 3)
+        commands: Tensor             # (1, 3)
+        dof_pos: Tensor              # (1, 12)
+        dof_vel: Tensor              # (1, 12)
+        actions: Tensor
 
-    def reward_fn(act: torch.Tensor, next_obs: torch.Tensor) -> torch.Tensor:
-        ...
+        @classmethod
+        def from_tensor(cls, env: LeggedRobot, tensor: Tensor):
+            return LeggedRobotObs(
+                tensor[:, 0:3] / env.obs_scales.lin_vel,
+                tensor[:, 3:6] / env.obs_scales.ang_vel,
+                tensor[:, 6:9],
+                tensor[:, 9:12] / env.commands_scale,
+                tensor[:, 12:24] / env.obs_scales.dof_pos,
+                tensor[:, 24:36] / env.obs_scales.dof_vel,
+                tensor[:, 36:48]
+            )
+
+    def termination_fn(act: Tensor, next_obs: Tensor) -> Tensor:
+        unnormalized_obs = LeggedRobotObs.from_tensor(env.legged_robot, next_obs)
+        # Check for tipping over - if magnitude X/Y gravity vector acting on body > threshold
+        return (torch.norm(unnormalized_obs.projected_gravity[:, :2]) > 0.7).reshape(-1, 1)
+
+    def reward_fn(act: Tensor, next_obs: Tensor) -> Tensor:
+        unnormalized_obs = LeggedRobotObs.from_tensor(env.legged_robot, next_obs)
+        return (env.legged_robot.cfg.rewards.scales.tracking_lin_vel * _reward_tracking_lin_vel(unnormalized_obs)).reshape(-1, 1)
+
+    def _reward_lin_vel_z(obs: LeggedRobotObs):
+        # Penalize z axis base linear velocity
+        return torch.square(obs.base_lin_vel[:, 2])
+
+    def _reward_ang_vel_xy(obs: LeggedRobotObs):
+        # Penalize xy axes base angular velocity
+        return torch.sum(torch.square(obs.base_ang_vel[:, :2]), dim=1)
+
+    def _reward_orientation(obs: LeggedRobotObs):
+        # Penalize non flat base orientation
+        return torch.sum(torch.square(obs.projected_gravity[:, :2]), dim=1)
+
+    # def _reward_base_height(self):
+    #     # Penalize base height away from target
+    #     base_height = torch.mean(self.root_states[:, 2].unsqueeze(1) - self.measured_heights, dim=1)
+    #     return torch.square(base_height - self.cfg.rewards.base_height_target)
+
+    # def _reward_torques(self):
+    #     # Penalize torques
+    #     return torch.sum(torch.square(self.torques), dim=1)
+
+    def _reward_dof_vel(obs: LeggedRobotObs):
+        # Penalize dof velocities
+        return torch.sum(torch.square(obs.dof_vel), dim=1)
+
+    # def _reward_dof_acc(self):
+    #     # Penalize dof accelerations
+    #     return torch.sum(torch.square((self.last_dof_vel - self.dof_vel) / self.dt), dim=1)
+
+    # def _reward_action_rate(self):
+    #     # Penalize changes in actions
+    #     return torch.sum(torch.square(self.last_actions - self.actions), dim=1)
+
+    # def _reward_collision(self):
+    #     # Penalize collisions on selected bodies
+    #     return torch.sum(1. * (torch.norm(self.contact_forces[:, self.penalised_contact_indices, :], dim=-1) > 0.1),
+    #                      dim=1)
+
+    # def _reward_termination(self):
+    #     # Terminal reward / penalty
+    #     return self.reset_buf * ~self.time_out_buf
+
+    def _reward_dof_pos_limits(obs: LeggedRobotObs):
+        # Penalize dof positions too close to the limit
+        out_of_limits = -(obs.dof_pos - obs.dof_pos_limits[:, 0]).clip(max=0.)  # lower limit
+        out_of_limits += (obs.dof_pos - obs.dof_pos_limits[:, 1]).clip(min=0.)
+        return torch.sum(out_of_limits, dim=1)
+
+    def _reward_dof_vel_limits(obs: LeggedRobotObs):
+        # Penalize dof velocities too close to the limit
+        # clip to max error = 1 rad/s per joint to avoid huge penalties
+        return torch.sum(
+            (torch.abs(obs.dof_vel) - obs.dof_vel_limits * env_cfg.rewards.soft_dof_vel_limit).clip(min=0., max=1.),
+            dim=1)
+
+    # def _reward_torque_limits(self):
+    #     # penalize torques too close to the limit
+    #     return torch.sum(
+    #         (torch.abs(self.torques) - self.torque_limits * self.cfg.rewards.soft_torque_limit).clip(min=0.), dim=1)
+
+    def _reward_tracking_lin_vel(obs: LeggedRobotObs):
+        # Tracking of linear velocity commands (xy axes)
+        lin_vel_error = torch.sum(torch.square(obs.commands[:, :2] - obs.base_lin_vel[:, :2]), dim=1)
+        return torch.exp(-lin_vel_error / env_cfg.rewards.tracking_sigma)
+
+    def _reward_tracking_ang_vel(obs: LeggedRobotObs):
+        # Tracking of angular velocity commands (yaw)
+        ang_vel_error = torch.square(obs.commands[:, 2] - obs.base_ang_vel[:, 2])
+        return torch.exp(-ang_vel_error / env_cfg.rewards.tracking_sigma)
+
+    # def _reward_feet_air_time(self):
+    #     # Reward long steps
+    #     # Need to filter the contacts because the contact reporting of PhysX is unreliable on meshes
+    #     contact = self.contact_forces[:, self.feet_indices, 2] > 1.
+    #     contact_filt = torch.logical_or(contact, self.last_contacts)
+    #     self.last_contacts = contact
+    #     first_contact = (self.feet_air_time > 0.) * contact_filt
+    #     self.feet_air_time += self.dt
+    #     rew_airTime = torch.sum((self.feet_air_time - 0.5) * first_contact,
+    #                             dim=1)  # reward only on first contact with the ground
+    #     rew_airTime *= torch.norm(self.commands[:, :2], dim=1) > 0.1  # no reward for zero command
+    #     self.feet_air_time *= ~contact_filt
+    #     return rew_airTime
+
+    # def _reward_stumble(self):
+    #     # Penalize feet hitting vertical surfaces
+    #     return torch.any(torch.norm(self.contact_forces[:, self.feet_indices, :2], dim=2) > \
+    #                      5 * torch.abs(self.contact_forces[:, self.feet_indices, 2]), dim=1)
+
+    def _reward_stand_still(self):
+        # Penalize motion at zero commands
+        return torch.sum(torch.abs(self.dof_pos - self.default_dof_pos), dim=1) * (
+                    torch.norm(self.commands[:, :2], dim=1) < 0.1)
+
+    # def _reward_feet_contact_forces(self):
+    #     # penalize high contact forces
+    #     return torch.sum((torch.norm(self.contact_forces[:, self.feet_indices, :],
+    #                                  dim=-1) - self.cfg.rewards.max_contact_force).clip(min=0.), dim=1)
 
     hydra.experimental.initialize(config_path="conf", job_name="pets")
     cfg = hydra.experimental.compose(config_name="main")

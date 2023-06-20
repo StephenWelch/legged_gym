@@ -1,5 +1,5 @@
 # @package _group_
-env: "gym___InvertedPendulum-v2"
+env: "gym___InvertedPendulum-v4"
 term_fn: "inverted_pendulum"
 learned_rewards: true
 trial_length: 1000
@@ -19,3 +19,4 @@ cem_num_iters: 5
 cem_elite_ratio: 0.078
 cem_population_size: 480
 cem_alpha: 0.134484
+cem_clipped_normal: false
