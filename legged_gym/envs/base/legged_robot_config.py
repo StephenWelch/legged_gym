@@ -164,7 +164,8 @@ class LeggedRobotCfg(BaseConfig):
         clip_actions = 100.
 
     class noise:
-        add_noise = True
+        # add_noise = True
+        add_noise = False
         noise_level = 1.0 # scales other values
         class noise_scales:
             dof_pos = 0.01
