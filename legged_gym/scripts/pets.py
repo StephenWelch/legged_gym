@@ -19,16 +19,20 @@ import mbrl.util.math
 
 from typing import Optional
 
+from mbrl.models import Model
 from torch import Tensor
 
 from legged_gym.envs import * # This line is required :)
 from legged_gym.utils import get_args, task_registry
-
+from torch.utils.tensorboard import SummaryWriter
+import datetime
 EVAL_LOG_FORMAT = mbrl.constants.EVAL_LOG_FORMAT
 
 def train(args):
     env, env_cfg = task_registry.make_env(name=args.task, args=args)
     env = LeggedRobotWrapper(env, 0, 'cpu')
+
+    writer = SummaryWriter()
 
     @dataclass
     class LeggedRobotObs:
@@ -49,17 +53,22 @@ def train(args):
                 tensor[:, 9:12] / env.commands_scale,
                 tensor[:, 12:24] / env.obs_scales.dof_pos,
                 tensor[:, 24:36] / env.obs_scales.dof_vel,
-                tensor[:, 36:48]
+                tensor[:, 36:48] # TODO check if this should be unnormalized
             )
 
     def termination_fn(act: Tensor, next_obs: Tensor) -> Tensor:
         unnormalized_obs = LeggedRobotObs.from_tensor(env.legged_robot, next_obs)
         # Check for tipping over - if magnitude X/Y gravity vector acting on body > threshold
-        return (torch.norm(unnormalized_obs.projected_gravity[:, :2]) > 0.7).reshape(-1, 1)
+        return (torch.norm(unnormalized_obs.projected_gravity[:, :2]) > 0.8).reshape(-1, 1)
 
     def reward_fn(act: Tensor, next_obs: Tensor) -> Tensor:
         unnormalized_obs = LeggedRobotObs.from_tensor(env.legged_robot, next_obs)
-        return (env.legged_robot.cfg.rewards.scales.tracking_lin_vel * _reward_tracking_lin_vel(unnormalized_obs)).reshape(-1, 1)
+        reward = 0
+        reward += (env.legged_robot.cfg.rewards.scales.tracking_lin_vel * _reward_tracking_lin_vel(unnormalized_obs)).reshape(-1, 1)
+        reward += (env.legged_robot.cfg.rewards.scales.lin_vel_z * _reward_lin_vel_z(unnormalized_obs)).reshape(-1, 1)
+        if termination_fn(act, next_obs):
+            reward += (env.legged_robot.cfg.rewards.scales.termination * _reward_termination(unnormalized_obs)).reshape(-1, 1)
+        return reward
 
     def _reward_lin_vel_z(obs: LeggedRobotObs):
         # Penalize z axis base linear velocity
@@ -99,9 +108,9 @@ def train(args):
     #     return torch.sum(1. * (torch.norm(self.contact_forces[:, self.penalised_contact_indices, :], dim=-1) > 0.1),
     #                      dim=1)
 
-    # def _reward_termination(self):
-    #     # Terminal reward / penalty
-    #     return self.reset_buf * ~self.time_out_buf
+    def _reward_termination(obs: LeggedRobotObs):
+        # Terminal reward / penalty
+        return torch.ones(env.legged_robot.num_envs, device=env.legged_robot.sim_device)
 
     def _reward_dof_pos_limits(obs: LeggedRobotObs):
         # Penalize dof positions too close to the limit
@@ -227,6 +236,10 @@ def train(args):
         model_env, cfg.algorithm.agent, num_particles=cfg.algorithm.num_particles
     )
 
+    def log_tensorboard(model: Model, n_train_iter: int, epoch: int, total_avg_loss: float, val_score: float, best_val_score: Optional[Tensor]):
+        writer.add_scalar("train/total_avg_loss", total_avg_loss, cfg.overrides.num_epochs_train_model * n_train_iter + epoch)
+        ...
+
     # ---------------------------------------------------------
     # --------------------- Training Loop ---------------------
     env_steps = 0
@@ -239,6 +252,7 @@ def train(args):
         truncated = False
         total_reward = 0.0
         steps_trial = 0
+        last_env_steps = env_steps
         while not terminated and not truncated:
             # --------------- Model Training -----------------
             if env_steps % cfg.algorithm.freq_train_model == 0:
@@ -248,6 +262,7 @@ def train(args):
                     cfg.overrides,
                     replay_buffer,
                     work_dir=work_dir,
+                    callback=log_tensorboard
                 )
 
             # --- Doing env step using the agent and adding to model dataset ---
@@ -256,7 +271,7 @@ def train(args):
                 reward,
                 terminated,
                 truncated,
-                _,
+                info,
             ) = mbrl.util.common.step_env_and_add_to_buffer(
                 env, obs, agent, {}, replay_buffer
             )
@@ -274,11 +289,17 @@ def train(args):
                 mbrl.constants.RESULTS_LOG_NAME,
                 {"env_step": env_steps, "episode_reward": total_reward},
             )
+            writer.add_scalar("train/episode_reward", total_reward, env_steps)
+            writer.add_scalar("train/episode_length", env_steps - last_env_steps, env_steps)
+            for name, value in info["episode"].items():
+                writer.add_scalar(f"train/{name}", value, env_steps)
         current_trial += 1
         if debug_mode:
             print(f"Trial: {current_trial }, reward: {total_reward}.")
 
         max_total_reward = max(max_total_reward, total_reward)
+
+    writer.flush()
 
     return np.float32(max_total_reward)
 

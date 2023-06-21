@@ -43,7 +43,7 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         measure_heights = False
           
     class init_state( LeggedRobotCfg.init_state ):
-        pos = [0.0, 0.0, 1.38] # x,y,z [m]
+        pos = [0.0, 0.0, 1.23] # x,y,z [m]
         default_joint_angles = { # = target angles [rad] when action = 0.0
             'll1_hip_yaw': 0.,
             'll2_hip_rol': 0.,
@@ -61,6 +61,7 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         }
 
     class control( LeggedRobotCfg.control ):
+        control_type = 'P' # P: position, V: velocity, T: torques
         # PD Drive parameters:
         lbd=10.0
         stiffness = { 
@@ -75,16 +76,18 @@ class PandoraFlatCfg( LeggedRobotCfg ):
             'rl2_hip_rol': lbd**2,
             'rl3_hip_pit': lbd**2,
             'rl4_kne_pit': lbd**2,
-            'rl5_ank_pit': lbd**2/2,
-            'rl6_ank_rol': lbd**2/2
+            # 'rl5_ank_pit': 40,
+            # 'rl6_ank_rol': 40
+            'rl5_ank_pit': 1e-6,
+            'rl6_ank_rol': 1e-6
         }  # [N*m/rad]
         damping = {
             'll1_hip_yaw': 2*lbd,
             'll2_hip_rol': 2*lbd,
             'll3_hip_pit': 2*lbd,
             'll4_kne_pit': 2*lbd,
-            'll5_ank_pit': 2*lbd,
-            'll6_ank_rol': 2*lbd,
+            'll5_ank_pit': 1,
+            'll6_ank_rol': 1,
 
             'rl1_hip_yaw': 2*lbd,
             'rl2_hip_rol': 2*lbd,
@@ -148,13 +151,14 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         max_contact_force = 50000.
 
         class scales( LeggedRobotCfg.rewards.scales ):
-            termination = -0.
+            termination = -1.
             tracking_lin_vel = 1.0
             tracking_ang_vel = 0.
-            lin_vel_z = 0.
+            lin_vel_z = -0.25
             ang_vel_xy = 0.
             orientation = -0.
-            torques = -5.e-6
+            # torques = -5.e-6
+            torques = 0
             dof_vel = -0.0
             dof_acc = -0.
             base_height= -0.
@@ -198,11 +202,14 @@ class PandoraFlatCfg( LeggedRobotCfg ):
     #         dof_pos_limits = -0.
 
     class domain_rand:
-        randomize_friction = True
-        friction_range = [0.5, 1.25]
+        randomize_friction = False
+        # randomize_friction = True
+        friction_range = [1, 1]
+        # friction_range = [0.5, 1.25]
         randomize_base_mass = False
         added_mass_range = [-1., 1.]
-        push_robots = True
+        push_robots = False
+        # push_robots = True
         push_interval_s = 15
         max_push_vel_xy = 1.
 

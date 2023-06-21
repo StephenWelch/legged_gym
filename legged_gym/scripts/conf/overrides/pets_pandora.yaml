@@ -12,16 +12,16 @@ model_wd: 0.00010
 model_batch_size: 32
 validation_ratio: 0
 #no_delta_list: [ 0 ]
-freq_train_model: 1000
+freq_train_model: 500
 patience: 12
-num_epochs_train_model: 25
+num_epochs_train_model: 50
 
-planning_horizon: 30
-cem_num_iters: 5
-cem_elite_ratio: 0.16
-cem_population_size: 400
-cem_alpha: 0.12
-cem_clipped_normal: false
+planning_horizon: 12
+cem_num_iters: 10
+cem_elite_ratio: 0.1
+cem_population_size: 1000
+cem_alpha: 0.0
+cem_clipped_normal: true
 
 #cem_population_decay_factor
 #cem_colored_noise_exponent
