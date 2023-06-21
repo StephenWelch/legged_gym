@@ -16,14 +16,16 @@ freq_train_model: 500
 patience: 12
 num_epochs_train_model: 50
 
-planning_horizon: 12
-cem_num_iters: 10
-cem_elite_ratio: 0.1
-cem_population_size: 1000
-cem_alpha: 0.0
-cem_clipped_normal: true
+planning_horizon: 30
+cem_num_iters: 5
+cem_elite_ratio: 0.16
+cem_population_size: 400
+cem_alpha: 0.1
+cem_clipped_normal: false
 
-#cem_population_decay_factor
-#cem_colored_noise_exponent
-#cem_keep_elite_frac
-#cem_alpha
+cem_population_decay_factor: 1.25
+cem_colored_noise_exponent: 2.5
+cem_keep_elite_frac: 0.3
+
+#action_ub: 100
+#action_lb: -100

@@ -43,7 +43,7 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         measure_heights = False
           
     class init_state( LeggedRobotCfg.init_state ):
-        pos = [0.0, 0.0, 1.23] # x,y,z [m]
+        pos = [0.0, 0.0, 1.24] # x,y,z [m]
         default_joint_angles = { # = target angles [rad] when action = 0.0
             'll1_hip_yaw': 0.,
             'll2_hip_rol': 0.,
@@ -61,7 +61,7 @@ class PandoraFlatCfg( LeggedRobotCfg ):
         }
 
     class control( LeggedRobotCfg.control ):
-        control_type = 'P' # P: position, V: velocity, T: torques
+        control_type = 'T' # P: position, V: velocity, T: torques
         # PD Drive parameters:
         lbd=10.0
         stiffness = { 
@@ -76,10 +76,8 @@ class PandoraFlatCfg( LeggedRobotCfg ):
             'rl2_hip_rol': lbd**2,
             'rl3_hip_pit': lbd**2,
             'rl4_kne_pit': lbd**2,
-            # 'rl5_ank_pit': 40,
-            # 'rl6_ank_rol': 40
-            'rl5_ank_pit': 1e-6,
-            'rl6_ank_rol': 1e-6
+            'rl5_ank_pit': 10,
+            'rl6_ank_rol': 10,
         }  # [N*m/rad]
         damping = {
             'll1_hip_yaw': 2*lbd,
@@ -142,34 +140,27 @@ class PandoraFlatCfg( LeggedRobotCfg ):
 
 #Scenario 2 Basic
     class rewards( LeggedRobotCfg.rewards ):
+        soft_dof_pos_limit = 0.95
+        soft_dof_vel_limit = 0.9
+        # soft_torque_limit = 0.9
+        soft_torque_limit = 50
+        max_contact_force = 300.
         only_positive_rewards = False
-        tracking_sigma = 0.25 # tracking reward = exp(-error^2/sigma)
-        soft_dof_pos_limit = 0.
-        soft_dof_vel_limit = 0.
-        soft_torque_limit = 0.
-        base_height_target = 0.
-        max_contact_force = 50000.
+
 
         class scales( LeggedRobotCfg.rewards.scales ):
-            termination = -1.
-            tracking_lin_vel = 1.0
-            tracking_ang_vel = 0.
-            lin_vel_z = -0.25
-            ang_vel_xy = 0.
-            orientation = -0.
-            # torques = -5.e-6
-            torques = 0
+            termination = -200.
+            tracking_ang_vel = 1.0
+            torques = -5.e-6
+            dof_acc = -2.e-7
+            lin_vel_z = -0.5
+            feet_air_time = 5.
+            dof_pos_limits = -1.
+            no_fly = 0.25
             dof_vel = -0.0
-            dof_acc = -0.
-            base_height= -0.
-            feet_air_time = 0.
-            collision= -0.
-            stumble = -0. 
-            action_rate = -0.
-            stand_still = -0.
+            ang_vel_xy = -0.0
             feet_contact_forces = -0.
-            no_fly = 0.0
-            dof_pos_limits = -0.
+
 
 #Scenario 3 Partial
     # class rewards( LeggedRobotCfg.rewards ):

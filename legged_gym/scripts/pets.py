@@ -43,6 +43,7 @@ def train(args):
         dof_pos: Tensor              # (1, 12)
         dof_vel: Tensor              # (1, 12)
         actions: Tensor
+        torques: Tensor
 
         @classmethod
         def from_tensor(cls, env: LeggedRobot, tensor: Tensor):
@@ -53,7 +54,8 @@ def train(args):
                 tensor[:, 9:12] / env.commands_scale,
                 tensor[:, 12:24] / env.obs_scales.dof_pos,
                 tensor[:, 24:36] / env.obs_scales.dof_vel,
-                tensor[:, 36:48] # TODO check if this should be unnormalized
+                tensor[:, 36:48], # TODO check if this should be unnormalized
+                tensor[:, 36:48] / env.cfg.control.action_scale # TODO for torque control mode only
             )
 
     def termination_fn(act: Tensor, next_obs: Tensor) -> Tensor:
@@ -62,12 +64,21 @@ def train(args):
         return (torch.norm(unnormalized_obs.projected_gravity[:, :2]) > 0.8).reshape(-1, 1)
 
     def reward_fn(act: Tensor, next_obs: Tensor) -> Tensor:
-        unnormalized_obs = LeggedRobotObs.from_tensor(env.legged_robot, next_obs)
+        obs = LeggedRobotObs.from_tensor(env.legged_robot, next_obs)
+        scales = env.legged_robot.cfg.rewards.scales
         reward = 0
-        reward += (env.legged_robot.cfg.rewards.scales.tracking_lin_vel * _reward_tracking_lin_vel(unnormalized_obs)).reshape(-1, 1)
-        reward += (env.legged_robot.cfg.rewards.scales.lin_vel_z * _reward_lin_vel_z(unnormalized_obs)).reshape(-1, 1)
+        reward += (scales.lin_vel_z * _reward_lin_vel_z(obs)).reshape(-1, 1)
+        reward += (scales.ang_vel_xy * _reward_ang_vel_xy(obs)).reshape(-1, 1)
+        reward += (scales.orientation * _reward_orientation(obs)).reshape(-1, 1)
+        # reward += (scales.torques * _reward_torques(obs)).reshape(-1, 1)
+        reward += (scales.dof_vel * _reward_dof_vel(obs)).reshape(-1, 1)
         if termination_fn(act, next_obs):
-            reward += (env.legged_robot.cfg.rewards.scales.termination * _reward_termination(unnormalized_obs)).reshape(-1, 1)
+            reward += (scales.termination * _reward_termination(obs)).reshape(-1, 1)
+        reward += (scales.dof_vel * _reward_dof_vel(obs)).reshape(-1, 1)
+        # reward += (scales.torques * _reward_torque_limits(obs)).reshape(-1, 1)
+        reward += (scales.tracking_lin_vel * _reward_tracking_lin_vel(obs)).reshape(-1, 1)
+        reward += (scales.tracking_ang_vel * _reward_tracking_ang_vel(obs)).reshape(-1, 1)
+
         return reward
 
     def _reward_lin_vel_z(obs: LeggedRobotObs):
@@ -87,9 +98,9 @@ def train(args):
     #     base_height = torch.mean(self.root_states[:, 2].unsqueeze(1) - self.measured_heights, dim=1)
     #     return torch.square(base_height - self.cfg.rewards.base_height_target)
 
-    # def _reward_torques(self):
-    #     # Penalize torques
-    #     return torch.sum(torch.square(self.torques), dim=1)
+    def _reward_torques(obs: LeggedRobotObs):
+        # Penalize torques
+        return torch.sum(torch.square(obs.torques), dim=1)
 
     def _reward_dof_vel(obs: LeggedRobotObs):
         # Penalize dof velocities
@@ -125,10 +136,10 @@ def train(args):
             (torch.abs(obs.dof_vel) - obs.dof_vel_limits * env_cfg.rewards.soft_dof_vel_limit).clip(min=0., max=1.),
             dim=1)
 
-    # def _reward_torque_limits(self):
-    #     # penalize torques too close to the limit
-    #     return torch.sum(
-    #         (torch.abs(self.torques) - self.torque_limits * self.cfg.rewards.soft_torque_limit).clip(min=0.), dim=1)
+    def _reward_torque_limits(obs: LeggedRobotObs):
+        # penalize torques too close to the limit
+        return torch.sum(
+            (torch.abs(obs.torques) - env.legged_robot.torque_limits * env.legged_robot.cfg.rewards.soft_torque_limit).clip(min=0.), dim=1)
 
     def _reward_tracking_lin_vel(obs: LeggedRobotObs):
         # Tracking of linear velocity commands (xy axes)
@@ -159,10 +170,10 @@ def train(args):
     #     return torch.any(torch.norm(self.contact_forces[:, self.feet_indices, :2], dim=2) > \
     #                      5 * torch.abs(self.contact_forces[:, self.feet_indices, 2]), dim=1)
 
-    def _reward_stand_still(self):
+    def _reward_stand_still(obs: LeggedRobotObs):
         # Penalize motion at zero commands
-        return torch.sum(torch.abs(self.dof_pos - self.default_dof_pos), dim=1) * (
-                    torch.norm(self.commands[:, :2], dim=1) < 0.1)
+        return torch.sum(torch.abs(obs.dof_pos - env.legged_robot.default_dof_pos), dim=1) * (
+                torch.norm(obs.commands[:, :2], dim=1) < 0.1)
 
     # def _reward_feet_contact_forces(self):
     #     # penalize high contact forces
@@ -186,7 +197,8 @@ def train(args):
         torch_generator.manual_seed(cfg.seed)
 
     # work_dir = work_dir or os.getcwd()
-    work_dir = os.getcwd()
+    # work_dir = os.getcwd()
+    work_dir = cfg.root_dir
     silent = False
     print(f"Results will be saved at {work_dir}.")
 
