@@ -381,7 +381,7 @@
     <origin rpy="0 0 0" xyz="0 -0.448 0"/>
     <parent link="l_thigh"/>
     <child link="l_shin"/>
-    <limit effort="100" lower="-2" upper="0" velocity="12"/>
+    <limit effort="200" lower="-2" upper="0" velocity="12"/>
     <dynamics damping="0.1" friction="0"/>
   </joint>
   <joint name="ll5_ank_pit" type="revolute">
@@ -429,7 +429,7 @@
     <origin rpy="0 0 0" xyz="0 -0.448 0"/>
     <parent link="r_thigh"/>
     <child link="r_shin"/>
-    <limit effort="100" lower="-2" upper="0" velocity="12"/>
+    <limit effort="200" lower="-2" upper="0" velocity="12"/>
     <dynamics damping="0.1" friction="0"/>
   </joint>
   <joint name="rl5_ank_pit" type="revolute">
