@@ -15,5 +15,6 @@ setup(
                       'numpy==1.23.5',
                       'tensorboard', 
                       'setuptools==59.5.0',
-                      'mbrl']
+                      'mbrl',
+                      'wandb']
 )

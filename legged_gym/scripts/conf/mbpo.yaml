@@ -1,0 +1,52 @@
+defaults:
+  - algorithm: mbpo
+  - dynamics_model: gaussian_mlp_ensemble
+  - overrides: mbpo_pandora
+  - action_optimizer: cem
+
+
+seed: 0
+device: "cuda:0"
+log_frequency_agent: 1000
+save_video: false
+debug_mode: true
+
+experiment: default
+
+root_dir: "../../logs"
+
+task: ???
+resume: false
+experiment_name: ""
+run_name: ""
+load_run: ""
+checkpoint: ""
+#  horovod: ???
+rl_device: "cuda:0"
+num_envs: 1
+max_iterations: ???
+
+# From original train script
+headless: false
+nographics: false
+sim_device: "cuda:0"
+pipeline: "gpu"
+graphics_device_id: 0
+flex: false
+physx: true
+num_threads: 0
+subscenes: 0
+slices: null
+
+# Placeholders for computed values
+sim_device_type: null
+compute_device_id: null
+use_gpu_pipeline: null
+physics_engine: null
+
+hydra:
+  run:
+    dir: ${root_dir}/${algorithm.name}/${experiment}/${overrides.env}/${now:%Y.%m.%d}/${now:%H%M%S}
+
+  sweep:
+    dir: ${root_dir}/${algorithm.name}/${experiment}/${overrides.env}/${now:%Y.%m.%d}/${now:%H%M%S}

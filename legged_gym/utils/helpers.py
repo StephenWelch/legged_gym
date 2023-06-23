@@ -35,6 +35,8 @@ import numpy as np
 import random
 from isaacgym import gymapi
 from isaacgym import gymutil
+from isaacgym.gymutil import parse_device_str
+from omegaconf import OmegaConf
 
 from legged_gym import LEGGED_GYM_ROOT_DIR, LEGGED_GYM_ENVS_DIR
 
@@ -170,6 +172,83 @@ def get_args():
         description="RL Policy",
         custom_parameters=custom_parameters)
 
+    args = resolve_device_names(args)
+
+    return args
+def get_args_from_cfg(args: OmegaConf):
+    # parse arguments
+    args = resolve_sim_args(args)
+    args = resolve_device_names(args)
+    return args
+def resolve_sim_args(args):
+    args.sim_device_type, args.compute_device_id = parse_device_str(args.sim_device)
+    pipeline = args.pipeline.lower()
+
+    assert (pipeline == 'cpu' or pipeline in (
+    'gpu', 'cuda')), f"Invalid pipeline '{args.pipeline}'. Should be either cpu or gpu."
+    args.use_gpu_pipeline = (pipeline in ('gpu', 'cuda'))
+
+    if args.sim_device_type != 'cuda' and args.flex:
+        print("Can't use Flex with CPU. Changing sim device to 'cuda:0'")
+        args.sim_device = 'cuda:0'
+        args.sim_device_type, args.compute_device_id = parse_device_str(args.sim_device)
+
+    if (args.sim_device_type != 'cuda' and pipeline == 'gpu'):
+        print("Can't use GPU pipeline with CPU Physics. Changing pipeline to 'CPU'.")
+        args.pipeline = 'CPU'
+        args.use_gpu_pipeline = False
+
+    # Default to PhysX
+    args.physics_engine = gymapi.SIM_PHYSX
+    args.use_gpu = (args.sim_device_type == 'cuda')
+
+    if args.flex:
+        args.physics_engine = gymapi.SIM_FLEX
+
+    # Using --nographics implies --headless
+    no_graphics = True
+    if no_graphics and args.nographics:
+        args.headless = True
+
+    if args.slices is None:
+        args.slices = args.subscenes
+
+    return args
+
+class Map(dict):
+    """
+    Example:
+    m = Map({'first_name': 'Eduardo'}, last_name='Pool', age=24, sports=['Soccer'])
+    """
+    def __init__(self, *args, **kwargs):
+        super(Map, self).__init__(*args, **kwargs)
+        for arg in args:
+            if isinstance(arg, dict):
+                for k, v in arg.items():
+                    self[k] = v
+
+        if kwargs:
+            for k, v in kwargs.items():
+                self[k] = v
+
+    def __getattr__(self, attr):
+        return self.get(attr)
+
+    def __setattr__(self, key, value):
+        self.__setitem__(key, value)
+
+    def __setitem__(self, key, value):
+        super(Map, self).__setitem__(key, value)
+        self.__dict__.update({key: value})
+
+    def __delattr__(self, item):
+        self.__delitem__(item)
+
+    def __delitem__(self, key):
+        super(Map, self).__delitem__(key)
+        del self.__dict__[key]
+
+def resolve_device_names(args):
     # name allignment
     args.sim_device_id = args.compute_device_id
     args.sim_device = args.sim_device_type
